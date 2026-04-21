@@ -1,0 +1,22 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Zmanim" : { "extractionState" : "manual" },
+    "Today's Calendar" : { "extractionState" : "manual" },
+    "Today's Zmanim" : { "extractionState" : "manual" },
+    "Next" : { "extractionState" : "manual" },
+    "Locations" : { "extractionState" : "manual" },
+    "Settings" : { "extractionState" : "manual" },
+    "Notifications" : { "extractionState" : "manual" },
+    "Add Location" : { "extractionState" : "manual" },
+    "Use Current Location" : { "extractionState" : "manual" },
+    "Saved Locations" : { "extractionState" : "manual" },
+    "Search for a city" : { "extractionState" : "manual" },
+    "Zmanim to display" : { "extractionState" : "manual" },
+    "Travel Mode" : { "extractionState" : "manual" },
+    "iCloud" : { "extractionState" : "manual" },
+    "Sync across devices" : { "extractionState" : "manual" },
+    "Auto-detect location changes" : { "extractionState" : "manual" }
+  },
+  "version" : "1.0"
+}

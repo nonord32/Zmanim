@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Copy these keys into the generated Zmanim/Info.plist (or the app target's
+  Info section in Xcode). Xcode 15 stores Info.plist keys on the target, so
+  this file exists as a checklist.
+-->
+<plist version="1.0">
+<dict>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Zmanim uses your location to calculate accurate prayer times for where you are.</string>
+
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Travel Mode uses your location in the background to switch zmanim automatically when you move between cities.</string>
+
+    <key>NSUserNotificationsUsageDescription</key>
+    <string>Zmanim can remind you before each zman, including candle lighting and Sefirat Ha'Omer.</string>
+
+    <key>BGTaskSchedulerPermittedIdentifiers</key>
+    <array>
+        <string>com.example.zmanim.refresh</string>
+    </array>
+
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>fetch</string>
+        <string>location</string>
+    </array>
+
+    <key>NSUbiquitousContainers</key>
+    <dict>
+        <key>iCloud.com.example.zmanim</key>
+        <dict>
+            <key>NSUbiquitousContainerIsDocumentScopePublic</key>
+            <false/>
+            <key>NSUbiquitousContainerSupportedFolderLevels</key>
+            <string>One</string>
+            <key>NSUbiquitousContainerName</key>
+            <string>Zmanim</string>
+        </dict>
+    </dict>
+
+    <key>CFBundleDisplayName</key>
+    <string>Zmanim</string>
+</dict>
+</plist>

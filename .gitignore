@@ -1,0 +1,27 @@
+# macOS / Xcode
+.DS_Store
+*.xcuserstate
+*.xcscmblueprint
+xcuserdata/
+*.xcworkspace/xcuserdata/
+DerivedData/
+build/
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.build/
+Packages/
+Package.pins
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+
+# Provisioning & signing
+*.mobileprovision
+*.p12
+*.certSigningRequest
+
+# Env
+.env
+.env.local
