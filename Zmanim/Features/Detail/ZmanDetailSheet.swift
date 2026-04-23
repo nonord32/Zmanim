@@ -57,7 +57,7 @@ struct ZmanDetailSheet: View {
         case (.shkiatHachama, _):
             return "Sea-level sunset at the configured latitude/longitude."
         default:
-            return "Computed via KosherCocoa (KosherJava port)."
+            return "Computed from NOAA Solar Position Algorithm plus standard shaos zmaniyos math."
         }
     }
 

@@ -3,18 +3,18 @@ import SwiftData
 
 public enum PersistenceConfig {
     /// Update this to match the App Group you configure in Xcode for the app
-    /// and widget targets.
-    public static let appGroupIdentifier = "group.com.example.zmanim"
+    /// and widget targets. If empty, the store lives in the app's sandbox
+    /// (no widget sharing, no App Group needed).
+    public static let appGroupIdentifier: String? = nil
 
-    /// Update this to match your iCloud container identifier.
-    public static let cloudKitContainerIdentifier = "iCloud.com.example.zmanim"
+    /// iCloud container identifier. `nil` disables CloudKit mirroring —
+    /// required when building with a free Apple ID that can't provision
+    /// iCloud containers.
+    public static let cloudKitContainerIdentifier: String? = nil
 }
 
 public enum SharedModelContainer {
 
-    /// A SwiftData container shared between the app and the widget, with
-    /// CloudKit mirroring. Safe to call from either target — both sides see
-    /// the same on-disk store via the App Group.
     public static func make() throws -> ModelContainer {
         let schema = Schema([
             SavedLocation.self,
@@ -22,29 +22,30 @@ public enum SharedModelContainer {
             NotificationRule.self
         ])
 
-        guard let storeURL = FileManager.default
-            .containerURL(forSecurityApplicationGroupIdentifier: PersistenceConfig.appGroupIdentifier)?
-            .appendingPathComponent("Zmanim.sqlite")
-        else {
-            throw NSError(
-                domain: "ZmanimKit",
-                code: 1,
-                userInfo: [NSLocalizedDescriptionKey: "App Group \(PersistenceConfig.appGroupIdentifier) not available. Configure it on both the app and widget targets."]
-            )
+        let configuration: ModelConfiguration
+        if let group = PersistenceConfig.appGroupIdentifier,
+           let storeURL = FileManager.default
+            .containerURL(forSecurityApplicationGroupIdentifier: group)?
+            .appendingPathComponent("Zmanim.sqlite") {
+            if let cloudID = PersistenceConfig.cloudKitContainerIdentifier {
+                configuration = ModelConfiguration(
+                    schema: schema,
+                    url: storeURL,
+                    cloudKitDatabase: .private(cloudID)
+                )
+            } else {
+                configuration = ModelConfiguration(schema: schema, url: storeURL)
+            }
+        } else {
+            // Sandbox-local store. Fine for single-target builds (free Apple ID).
+            configuration = ModelConfiguration(schema: schema)
         }
 
-        let configuration = ModelConfiguration(
-            schema: schema,
-            url: storeURL,
-            cloudKitDatabase: .private(PersistenceConfig.cloudKitContainerIdentifier)
-        )
-
         let container = try ModelContainer(for: schema, configurations: [configuration])
-        ensureSeed(container: container)
+        Task { @MainActor in ensureSeed(container: container) }
         return container
     }
 
-    /// Guarantee exactly one `UserPreferences` row exists.
     @MainActor
     private static func ensureSeed(container: ModelContainer) {
         let context = container.mainContext

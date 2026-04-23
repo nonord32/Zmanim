@@ -12,16 +12,8 @@ let package = Package(
     products: [
         .library(name: "ZmanimKit", targets: ["ZmanimKit"])
     ],
-    dependencies: [
-        .package(url: "https://github.com/MosheBerman/KosherCocoa", from: "3.6.0")
-    ],
     targets: [
-        .target(
-            name: "ZmanimKit",
-            dependencies: [
-                .product(name: "KosherCocoa", package: "KosherCocoa")
-            ]
-        ),
+        .target(name: "ZmanimKit"),
         .testTarget(
             name: "ZmanimKitTests",
             dependencies: ["ZmanimKit"]
